@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latihan Alpine</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div
+      x-data="{pesan: '', open: false, hobbies: []}"
+      class="container mx-auto w-3/4 text-center mt-10 bg-red-200 p-10 rounded-xl shadow"
+    >
+      <label for="nama" class="text-sm font-medium text-gray-900 block mb-2"
+        >Masukkan Pesan</label
+      >
+      <input
+        x-model="pesan"
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+      <span
+        x-bind:class="`${pesan.length > 10 ? 'text-red-500' : 'text-green-500'} ${pesan.length > 10 ? 'text-lg' : 'text-2xl'}`"
+        x-text="pesan.length"
+      ></span>
+
+      <br /><br />
+      <input type="checkbox" id="checkbox" x-model="open" />
+      <label for="checkbox" x-text="!open ? 'kosong' : 'terisi'"></label>
+
+      <br /><br />
+      <input type="checkbox" value="A" x-model="hobbies" />
+      <input type="checkbox" value="B" x-model="hobbies" />
+      <input type="checkbox" value="C" x-model="hobbies" />
+      <br />
+      <span x-text="hobbies"></span>
+    </div>
+  </body>
+</html>

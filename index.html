@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belajar Alpine</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.store("mahasiswa", {
+          angkatan: "2020",
+          nama: ["Andry", "Bagas", "Adi"],
+        });
+      });
+    </script>
+  </head>
+
+  <body x-data="{page: 'BELAJAR ALPINE'}">
+    <div @keyup.window.slash="alert('DOCUMENTATION')">
+      <div x-data="{nama: 'Andry Pebrianto'}">
+        <div x-data="{umur: 21}">
+          <h1 x-text="nama"></h1>
+          <h1 x-text="umur"></h1>
+        </div>
+      </div>
+
+      <div x-data>
+        <ul>
+          <template x-for="nm in $store.mahasiswa.nama">
+            <li x-text="nm"></li>
+          </template>
+        </ul>
+      </div>
+
+      <button x-data @click="alert($store.mahasiswa.angkatan)">
+        Cek Angkatan
+      </button>
+
+      <div
+        x-data="{
+          nama: 'Andry Pebrianto',
+          angka: 12,
+          web: '<a href=\'https://andrypebrianto.netlify.app/\' target=\'_blank\'>Andry Web</a>'}"
+        class="container mx-auto w-1/2 text-center mt-10 bg-lime-200 p-10 rounded-xl shadow"
+      >
+        <h1
+          class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-pink-400 bg-clip-text text-transparent drop-shadow-sm"
+        >
+          Halo, <span x-text="`Master ${nama}`"></span>
+        </h1>
+        <p x-text="angka % 2 === 0 ? 'Genap' : 'Ganjil'"></p>
+        <button class="bg-slate-300 py-1 px-3 mt-2" @click="angka++">
+          Add
+        </button>
+        <br />
+        <span x-html="web"></span>
+      </div>
+
+      <div
+        class="container mx-auto w-1/2 text-center mt-10 bg-sky-200 p-10 rounded-xl shadow"
+        x-data="{isOpen: false}"
+      >
+        <button
+          @click.outside="isOpen=false"
+          @click="isOpen=!isOpen"
+          class="py-2 px-5 text-white rounded-md"
+          x-text="isOpen ? 'Tutup' : 'Buka'"
+          x-bind:class="isOpen ? 'bg-sky-300' : 'bg-slate-600'"
+        ></button>
+        <div
+          x-show="isOpen"
+          x-transition:enter.duration.100ms
+          x-transition:leave.duration.500ms
+          class="w-3/4 mx-auto mt-4 p-5 bg-blue-400 rounded text-white"
+        >
+          Lorem ipsum dolor sit amet.
+        </div>
+        <!-- <template x-if="isOpen">
+          <div class="w-3/4 mx-auto mt-4 p-5 bg-blue-400 rounded text-white">
+            Lorem ipsum dolor sit amet.
+          </div>
+        </template> -->
+        <br />
+        <button
+          id="messageButton"
+          @click="console.log($event.target.dataset.message)"
+          data-message="Manusia Api"
+        >
+          Informasi
+        </button>
+        <br />
+        <input
+          type="text"
+          @keyup.shift.enter="() => {
+            console.log($event.target.value);
+            console.log('keyup');
+          }"
+          @keydown="() => {
+            console.log($event.target.value);
+            console.log('keydown');
+          }"
+        />
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+  </body>
+</html>
